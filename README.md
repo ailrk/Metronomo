@@ -1,5 +1,3 @@
-# A FOL Theorem prover
+# Metronomo
 
-and a SAT sovler
-
-WIP
+A Metronome app.

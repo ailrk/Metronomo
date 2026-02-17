@@ -24,6 +24,11 @@
       };
     };
 
+    nixosModules = rec {
+      metronomo = import ./nix/modules self;
+      default = metronomo;
+    };
+
     devShell = pkgs.callPackage ./shell.nix {};
   }
   );
