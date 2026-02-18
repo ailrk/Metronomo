@@ -19,6 +19,24 @@
 
       src = ./.;
 
+      nativeBuildInputs = [
+        pkgs.wasm-bindgen-cli
+        pkgs.llvmPackages.bintools
+      ];
+
+      buildPhase = ''
+        cargo build --target wasm32-unknown-unknown --release --offline
+        wasm-bindgen --target web --out-dir dist \
+          target/wasm32-unknown-unknown/release/metronomo.wasm
+      '';
+
+      installPhase = ''
+        mkdir -p $out
+        cp index.html $out/
+        [ -f index.css ] && cp index.css $out/
+        cp -r dist/* $out/
+      '';
+
       cargoLock = {
         lockFile = ./Cargo.lock;
       };

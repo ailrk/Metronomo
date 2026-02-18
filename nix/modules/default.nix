@@ -4,7 +4,7 @@ let
 in
 {
   options.services.metronomo =
-    let submodule = { ... }:
+    let submodule = { name, ... }:
       {
         options = {
           enable = lib.mkOption {
@@ -16,6 +16,7 @@ in
           hostName = lib.mkOption {
             type = lib.types.string;
             example = "metronome.example.com";
+            default = "${name}.internal";
             description = "The hostname to serve the metronome on.";
           };
 
@@ -39,6 +40,7 @@ in
       type = lib.types.attrsOf (lib.types.submodule submodule);
     };
 
+  # setup an internal
   config = lib.mkIf (lib.any (cfg: cfg.enable) (lib.attrValues cfgs)) {
     services.nginx = {
       enable = true;
@@ -49,9 +51,11 @@ in
           root = "${cfg.package}";
           index = "index.html";
           extraConfig = ''
+            include ${pkgs.nginx}/conf/mime.types;
             types {
               application/wasm wasm;
             }
+            default_type text/html; # Fallback to HTML
           '';
         };
       }) cfgs;
