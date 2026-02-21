@@ -25,4 +25,4 @@ build:
 
 
 serve:
-  cd dist && python3 -m http.server 9999
+  cd dist && python3 -m http.server 9996

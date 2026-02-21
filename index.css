@@ -1,12 +1,29 @@
 body {
   font-family: system-ui;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+
+  /* Use dvh for iOS to ignore the address bar */
+  height: 100dvh;
+  /* Fallback for older browsers */
+  min-height: 100vh;
+
+  width: 100%;
+
+  /* Stops "rubber-band" bounce on iOS */
+  overscroll-behavior: none;
+
+  height: 100dvh;
+  box-sizing: border-box;
+
   margin: 0;
+  overflow: hidden;
   background: #eee;
+
+  /* Use padding to keep content out of the notch/home bar */
+  padding: calc(20% - env(safe-area-inset-top)) 20px env(safe-area-inset-bottom)
 }
 
 
