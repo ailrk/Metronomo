@@ -14,7 +14,7 @@ in
           };
 
           hostName = lib.mkOption {
-            type = lib.types.string;
+            type = lib.types.str;
             example = "metronome.example.com";
             default = "${name}.internal";
             description = "The hostname to serve the metronome on.";
